@@ -1,5 +1,5 @@
 import os
-from pathlib import Path
+import shutil
 
 #Step 1: Highlight the folder names in a dictionary
 folder_names = {
@@ -39,16 +39,27 @@ print(len(all_folders))
 
 #Step 6: Create the new and organised folder paths
 new_folder_paths=[os.path.join(downloads_folder_path, folder) for folder in folder_names]
-print(new_folder_paths)
+# print(new_folder_paths)
 
 #Step 7: Create new folders from created paths
 for new_folder in new_folder_paths:
-    os.mkdir(new_folder)
+    if not os.path.exists(new_folder):
+        os.mkdir(new_folder)
 
 #Step 8: Create a tweaker function that creates new paths for files 
+def path_tweaker(old_path):
+    file_name=old_path.split("/")[-1]
+    extension=file_name.split(".")[-1].lower()
+    designated_folder= extension_folder_map[extension] if extension in extension_folder_map else 'Others'
+    new_path= os.path.join(downloads_folder_path,designated_folder,file_name)
+    return new_path
 
 
-#Step 9: Use the function to rename al; the files from 4
+#Step 9: Use the function to rename all the files from 4
+for file in all_files:
+    print(path_tweaker(file))
+    shutil.move(file,path_tweaker(file))
+    
 #Step 10: Move existing folders to into the newly created "Others" folder.
 
 
