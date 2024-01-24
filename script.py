@@ -16,10 +16,17 @@ folder_names = {
 }
 
 #Step 2: Create a dictionary that maps an extension to its corresponding folder from the above dictionary
+extension_folder_map= {}
+for folder_type, extensions in folder_names.items():
+    for extension in extensions:
+        extension_folder_map[extension]=folder_type
+
 #Step 3: State download folder path
+downloads_folder_path = "/Users/olubusolamisogunle/Downloads"
+
 #Step 4: Access the download folder and store the filepaths in a list
-#Step 5: Access the download folder and store the filepaths in a list
-#Step 6: Create folder paths
+#Step 5: Access the download folder and store the folderpaths in a list
+#Step 6: Create the new and organised folder paths
 #Step 7: Create folders from paths
 #Step 8: Create function that creates new paths for files 
 #Step 9: Use the function to rename al; the files from 4
