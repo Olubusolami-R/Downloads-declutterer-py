@@ -10,7 +10,7 @@ folder_names = {
     'PDFs':{'pdf'},
     'Images':{'bmp','gif','ico','jpeg','jpg','png','jfif','svg','tif','tiff','heic','webp'},
     'Other_Documents':{'ppt','pptx','xls', 'xlsx','doc','docx','txt', 'tex'},
-    'Software':{'apk','bat','bin', 'exe','jar','msi','dmg'},
+    'Software':{'apk','bat','bin', 'exe','jar','msi','dmg','app'},
     'Videos':{'3gp','avi','flv','h264','mkv','mov','mp4','mpg','mpeg','wmv'},
     'Others': {'NONE'}
 }
@@ -33,7 +33,7 @@ print(len(all_files))
 
 #Step 5: Access the download folder and store the folderpaths in a list
 all_folders=[os.path.join(downloads_folder_path,f) for f in os.listdir(downloads_folder_path) 
-           if os.path.isdir(os.path.join(downloads_folder_path,f))]
+           if os.path.isdir(os.path.join(downloads_folder_path,f)) and f not in folder_names]
 
 print(len(all_folders))
 
@@ -52,14 +52,17 @@ def path_tweaker(old_path):
     extension=file_name.split(".")[-1].lower()
     designated_folder= extension_folder_map[extension] if extension in extension_folder_map else 'Others'
     new_path= os.path.join(downloads_folder_path,designated_folder,file_name)
-    return new_path
+    shutil.move(old_path,new_path)
 
 
-#Step 9: Use the function to rename all the files from 4
+#Step 9: Use the function to move all the files from Step 4
 for file in all_files:
-    print(path_tweaker(file))
-    shutil.move(file,path_tweaker(file))
-    
-#Step 10: Move existing folders to into the newly created "Others" folder.
+    path_tweaker(file)
+
+#Step 10: Move existing folders from step 5 into the newly created "Others" folder.
+for folder in all_folders:
+    folder_name=folder.split("/")[-1]
+    new_path= os.path.join(downloads_folder_path,"Others",folder_name)
+    shutil.move(folder,new_path)
 
 
