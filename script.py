@@ -25,7 +25,18 @@ for folder_type, extensions in folder_names.items():
 downloads_folder_path = "/Users/olubusolamisogunle/Downloads"
 
 #Step 4: Access the download folder and store the filepaths in a list
+all_files=[os.path.join(downloads_folder_path,f) for f in os.listdir(downloads_folder_path) 
+           if os.path.isfile(os.path.join(downloads_folder_path,f))]
+
+print(len(os.listdir(downloads_folder_path)))
+print(len(all_files))
+
 #Step 5: Access the download folder and store the folderpaths in a list
+all_folders=[os.path.join(downloads_folder_path,f) for f in os.listdir(downloads_folder_path) 
+           if os.path.isdir(os.path.join(downloads_folder_path,f))]
+
+print(len(all_folders))
+
 #Step 6: Create the new and organised folder paths
 #Step 7: Create folders from paths
 #Step 8: Create function that creates new paths for files 
